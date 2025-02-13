@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities{
+  .btn{
+    @apply text-sm font-medium border-black border-[1px] rounded-md px-3 py-1 active:bg-gray-300;
+  }
+  .card{
+    /* margin: 0 auto; */
+    padding: 4px;
+    width: 300px; 
+    background: #1c1f2b;
+    text-align: center;
+    border-radius: 10px;
+    z-index: 10;
+  }
+  
+  @property --angle{
+    syntax: "<angle>";
+    initial-value: 180deg;
+    inherits: false;
+  }
+  
+  .card::after{
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle), #ffffff, #ffffff, #ffffff,#78d087, #00b627 );
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 3px;
+    border-radius: 10px;
+    animation: 1s spin ease-in 1;
+    /* z-index: 10; */
+  }
+  /* .card::before{
+    filter: blur(1.5rem);
+    opacity: 0.5;
+  } */
+  @keyframes spin{
+    from{
+      --angle: 180deg;
+    }
+    to{
+      --angle: 540deg;
+    }
+  }
+}
