@@ -18,4 +18,18 @@ This is the **frontend** of an Instagram Clone built using **React.js**. It prov
 - Socket.io (for real-time messaging)
 - Axios (for API requests)
 
-## 📂 Folder Structure
+# ScreenShots
+![alt text](./preview_images/loginpage.png)
+![alt text](./preview_images/home.png)
+![alt text](./preview_images/explore.png)
+![alt text](./preview_images/direct1.png) 
+![alt text](./preview_images/direct2.png)
+![alt text](./preview_images/notifications.png)
+![alt text](./preview_images/profile.png)
+![alt text](./preview_images/createpost1.png) 
+![alt text](./preview_images/createpost2.png) 
+![alt text](./preview_images/createpost3.png)
+![alt text](./preview_images/post1.png) 
+![alt text](./preview_images/post2.png) 
+![alt text](./preview_images/post3.png) 
+![alt text](./preview_images/post4.png)

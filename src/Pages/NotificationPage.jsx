@@ -19,7 +19,7 @@ export default function () {
 
   if(loading) {
     return (
-      <div className="w-auto h-screen flex flex-col items-center mt-14 md:ml-14 lg:ml-64">
+      <div className="w-auto h-screen flex flex-col items-center pt-14 md:ml-14 lg:ml-64">
       <Loader />
       </div>
     )

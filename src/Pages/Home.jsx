@@ -52,10 +52,7 @@ export default function Home() {
               alt="user"
               width="70px" />
             <h1>Your Story</h1>
-            <button onClick={()=> {
-              setTimeout(()=> dispatch(MessagePopUp({message: '',visibility: false, type: ''})),3000)
-              dispatch(MessagePopUp({message: 'hello world', visibility: true, type: 'info'}))
-            }}>POP</button>
+            
           </div>
         }
       </div>

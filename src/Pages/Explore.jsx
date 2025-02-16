@@ -49,7 +49,7 @@ export default function Explore() {
             })
         }} />
 
-        <div className="absolute top-16 md:top-24 bg-white w-full flex flex-col items-center  ">
+        <div className="absolute top-16 md:top-[94px] bg-white w-full flex flex-col items-center  ">
           {
             searchResult.length > 0 && searchResult.map((user) => (
               <div key={user._id} className="flex w-11/12 max-w-96 items-center border-[1px] border-gray-200 p-1 m-1" onClick={() => navigate(`/app/${user.username}`)}>

@@ -37,8 +37,8 @@ export default function LoginPage() {
   },[])
 
   return (
-    <div className=" w-full min-h-full flex flex-col justify-between items-center">
-      <div className=" flex justify-center items-center gap-6 mt-5 sm:mt-20">
+    <div className=" w-full h-screen flex flex-col justify-between items-center">
+      <div className="h-full flex justify-center items-center gap-6 mt-5 sm:mt-20">
         <div className="bg-center w-96 h-[600px] hidden  lg:flex flex-col  justify-evenly items-center  border-gray-200 border-2 bg-[url(https://img.freepik.com/premium-vector/instagram-home-page-interface-with-smartphone-vector-post-mockup_536326-779.jpg)]  "
         ></div>
         <div className="h-[600px] flex flex-col justify-between items-center">
