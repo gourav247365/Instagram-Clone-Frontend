@@ -16,7 +16,7 @@ export default function LoginPage() {
   const [Error, setError] = useState("")
   
   const login = (data) => {
-    axios.post('/api/v1/users/login', data)
+    axios.post(`${import.meta.env.VITE_SOCKET_URL}/api/v1/users/login`, data)
       .then((res) => {
         dispatch(updateCurrentUser(res.data.data.user))
         setTimeout(()=> dispatch(MessagePopUp({visibility: false,message: '', type: ''})),3000)
