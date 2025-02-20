@@ -27,15 +27,17 @@ function App() {
 
   useEffect(() => {
 
-    axios.get('/api/v1/users/current-user')
+    axios.get(`/api/v1/users/current-user`)
       .then((res) => {
         dispatch(updateCurrentUser(res.data.data))
       })
       .catch((error) => {
         setError(error.message)
+        console.log(error);
+        
       })
 
-    axios.get('/api/v1/users/current-user-related-accounts-count')
+    axios.get(`/api/v1/users/current-user-related-accounts-count`)
       .then((res) => {
         dispatch(addCurrentUserRelatedAccountsCount(res.data.data))
       })
@@ -43,7 +45,7 @@ function App() {
         setError(error.message)
       })
 
-    axios.get('/api/v1/posts/following').then((res) => {
+    axios.get(`/api/v1/posts/following`).then((res) => {
       dispatch(updateFollowingPosts(res.data.data.docs))
       setLoading(false)
     })
@@ -51,7 +53,7 @@ function App() {
         setError(error.message)
       })
 
-    axios.get('/api/v1/chats/current-user')
+    axios.get(`/api/v1/chats/current-user`)
       .then((res) => {
         dispatch(updateChats(res.data.data))
       })
@@ -59,7 +61,7 @@ function App() {
         setError(error.message)
       })
 
-    axios.get('/api/v1/posts/current')
+    axios.get(`/api/v1/posts/current`)
       .then((res) => {
         dispatch(updateCurrentUserPosts(res.data.data.posts))
         dispatch(addCurrentUserPostsCount(res.data.data.postsCount))
@@ -68,7 +70,7 @@ function App() {
         setError(error.message)
       })
 
-    axios.get('/api/v1/posts/explore')
+    axios.get(`/api/v1/posts/explore`)
       .then((res) => {
         dispatch(updateExplorePosts(res.data.data.docs))
       })

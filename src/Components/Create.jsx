@@ -31,7 +31,7 @@ export default function Create({ modalRef }) {
     setUploading(true)
     setTimeout(() => modalRef(false), 2000)
 
-    axios.post('/api/v1/posts/create', form)
+    axios.post(`/api/v1/posts/create`, form)
       .then((res) => {
         setUploading(false)
         setImg(null)
@@ -92,7 +92,7 @@ export default function Create({ modalRef }) {
   }
 
   return (
-    <div className={` backdrop-blur- w-screen h-dvh flex flex-col justify-center items-center  bg-black bg-opacity-50 fixed bottom-0 left-0 z-50 `}>
+    <div className={` w-screen h-dvh flex flex-col justify-center items-center  bg-black bg-opacity-50 fixed bottom-0 left-0 z-50 `}>
       <button
         className="absolute top-14 md:top-0 right-0 text-white px-6 py-3"
         onClick={() => modalRef(false)}

@@ -79,7 +79,7 @@ export default function EditProfile() {
                 onClick={async () => {
                 const formdata = new FormData()
                 formdata.append("displayPicture", await getCroppedImg(img, croppedAreaPixels))
-                axios.patch('/api/v1/users/update-dp', formdata)
+                axios.patch(`/api/v1/users/update-dp`, formdata)
                   .then((res) => {
                     dispatch(updateUserField({ field: 'displayPicture', value: res.data.data.displayPicture }))
                   })
@@ -153,7 +153,7 @@ export default function EditProfile() {
                 <label htmlFor="dp" >upload</label>
                 <button
                   onClick={() => {
-                    axios.patch('/api/v1/users/remove-dp')
+                    axios.patch(`/api/v1/users/remove-dp`)
                       .then((res) => {
                         dispatch(updateCurrentUser(res.data.data))
                       })
@@ -174,7 +174,7 @@ export default function EditProfile() {
               }}
             />
             <button onClick={() => {
-              axios.patch('/api/v1/users/update-fullname', { fullname: newFullname })
+              axios.patch(`/api/v1/users/update-fullname`, { fullname: newFullname })
                 .then((res) => {
                   dispatch(updateUserField({ field: 'fullname', value: res.data.data.fullname }))
                 })
@@ -199,7 +199,7 @@ export default function EditProfile() {
               <button title="username not availible" className={`text-red-500 text-sm sm:text-2xl sm:font-extrabold ${availible ? 'hidden' : ''}`}>❌</button>
               <button
                 onClick={() => {
-                  axios.patch('/api/v1/users/update-username', { username: newUsername })
+                  axios.patch(`/api/v1/users/update-username`, { username: newUsername })
                     .then((res) => {
                       dispatch(updateUserField({ field: 'username', value: res.data.data.username }))
                     })
@@ -221,7 +221,7 @@ export default function EditProfile() {
               title="update"
               className={`${currentUser.bio === newBio ? 'hidden' : ''} absolute right-4 top-0 bottom-0 my-auto `}
               onClick={() => {
-                axios.patch('/api/v1/users/update-bio', { bio: newBio })
+                axios.patch(`/api/v1/users/update-bio`, { bio: newBio })
                   .then((res) => {
                     dispatch(updateUserField({ field: 'bio', value: res.data.data.bio }))
                   })
@@ -246,7 +246,7 @@ export default function EditProfile() {
                 id="check"
                 checked={currentUser.isPrivate}
                 onChange={() => {
-                  axios.patch('/api/v1/users/update-privacy-status', { isPrivate: !currentUser.isPrivate })
+                  axios.patch(`/api/v1/users/update-privacy-status`, { isPrivate: !currentUser.isPrivate })
                     .then((res) => {
                       dispatch(togglePrivacy())
                     })

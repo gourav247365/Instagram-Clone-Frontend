@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom"
 import io from 'socket.io-client'
 import ChatList from "../Components/Chat"
 import Loader from "../Components/Loader"
-import direct from '../public/assets/icons/direct.png'
+import direct from '../assets/icons/direct.png'
 
 export default function Direct() {
 
@@ -48,13 +48,13 @@ export default function Direct() {
     setIsMobile(mobileRegex.test(userAgent))
   }, [])
 
-  const socket = io.connect(import.meta.env.VITE_SOCKET_URL)
-  console.log(socket);
-  
+  const socket = io.connect(import.meta.env.VITE_BACKEND_URL)
+
   useEffect(() => {
 
     socket.on('getMessage', (data) => {
-      
+      console.log("MR");
+
       if (data.sender != currentUser._id) {
         setMessages((cur) => [data, ...cur])
         dispatch(setNewLastMessage(data))
@@ -64,19 +64,19 @@ export default function Direct() {
     socket.on('getTyping', (data) => {
       if (timeoutRef)
         clearTimeout(timeoutRef)
-      
+
       if (data.userId != currentUser._id) {
-       
+
         setTyping(true)
         const timeout = setTimeout(() => {
           setTyping(false)
-        }, 1500)
+        }, 2000)
         setTimeoutRef(timeout)
       }
     })
 
     socket.on('getDeleteMessage', (data) => {
-      
+
       if (data.sender != currentUser._id)
         setMessages((cur) => cur.filter((message) => message._id != data._id))
     })
@@ -110,16 +110,14 @@ export default function Direct() {
     }
   }, [chatId])
 
-  useEffect(()=> {
-    if (chatId) {
-      socket.emit('join', chatId)
-    }
-  },[chatId])
+  if (chatId) {
+    socket.emit('join', chatId)
+  }
 
   return (
     <div className="w-auto h-dvh grid md:grid-cols-[400px,1fr] grid-cols-[135px,1fr] justify-center items-start pt-14 md:pt-0 md:ml-14 lg:ml-64 ">
       <div className={`w-full md:w-[400px] ${isMobile ? chatId ? 'hidden' : '' : ''}`}>
-        <div className="w md:w-[400px] min-h-[100%] fixed overflow-y-scroll flex flex-col items-center md:items-start">
+        <div className="w md:w-[400px] min-h-[100%] fixed overflow-y-scroll flex flex-col items-center md:items-start ">
           <div className="p-4 w-full relative">
             <img
               className="rounded-full w-[70px] md:w-[90px]"
@@ -157,10 +155,12 @@ export default function Direct() {
           ref={messageDivRef}
           className={`${isMobile ? 'w-screen' : 'w-auto'} flex flex-col-reverse justify-end pb-[120px] pt-16 md:pb-16 `}
         >
-          <div className={` ${typing ? '' : 'invisible'} self-start m-2 bg-green-200 rounded-xl px-3 py- max-w-96 `}>
-            <span className=" animate-ping ">•</span>
-            <span className=" px-[1px] animate-ping ">•</span>
-            <span className=" animate-ping ">•</span>
+          <div
+            className={`p-[11px] rounded-3xl bg-green-200 w-fit inline-flex gap-1 m-2 ${typing ? '' : 'invisible'} relative`}
+          >
+            <span className="animation1 h-1 w-1 bg-black rounded-full"></span>
+            <span className="animation2 h-1 w-1 bg-black rounded-full"></span>
+            <span className="animation3 h-1 w-1 bg-black rounded-full"></span>
           </div>
           {
             chatId && messages.map((message) =>
@@ -197,10 +197,10 @@ export default function Direct() {
                 className={`${hasMore ? '' : 'hidden'}`}
                 onClick={fetchMoreMessages}
               >
-                <img 
-                  src="https://res.cloudinary.com/dmxjulnzo/image/upload/v1725696541/small_1x_2acee179-6fdc-4e33-9601-a380b16cd93c_afvp3j.png" 
-                  alt="" 
-                  className="w-10" 
+                <img
+                  src="https://res.cloudinary.com/dmxjulnzo/image/upload/v1725696541/small_1x_2acee179-6fdc-4e33-9601-a380b16cd93c_afvp3j.png"
+                  alt=""
+                  className="w-10"
                 />
               </button>
             </div>
@@ -233,7 +233,7 @@ export default function Direct() {
             onSubmit={(e) => {
               e.preventDefault()
               if (message) {
-                axios.post('/api/v1/messages/send', { reciever: participant._id, text: message, chatId: chatId })
+                axios.post(`/api/v1/messages/send`, { reciever: participant._id, text: message, chatId: chatId })
                   .then((res) => {
                     setMessages([res.data.data, ...messages])
                     socket.emit('message', res.data.data)

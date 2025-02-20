@@ -9,7 +9,6 @@ import axios from "axios"
 import Map from "../Components/Post"
 import Loader from "../Components/Loader"
 
-
 export default function Home() {
   const dispatch = useDispatch()
   const currentUser = useSelector((state) => state.currentUser)

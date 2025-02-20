@@ -52,8 +52,6 @@ export default function ({ post, setWidth, modalRef }) {
       })
   }, [post])
 
- 
-
   return (
     <div className={` bg-white rounded-sm relative flex`} >
       {
@@ -76,7 +74,7 @@ export default function ({ post, setWidth, modalRef }) {
           />
           <img
             className={`absolute top-[30%] left-[35%] w-[30%] contrast-75
-            ${animateLike ? "animate-pop2" : "hidden"} `}
+            ${animateLike ? "animate-like" : "hidden"} `}
             src="https://res.cloudinary.com/dmxjulnzo/image/upload/v1729320438/Heart_coraz%C3%B3n.svg_jupxq6.png"
             alt=""
           />
@@ -93,8 +91,8 @@ export default function ({ post, setWidth, modalRef }) {
               className="rounded-full"
             />
             <div>
-              <NavLink to={`/app/${post.username}`}>{post.username}</NavLink>
-              <h1 className="text-sm font-[150px] text-gray-500">{post.location}</h1>
+              <NavLink className='text-sm sm:text-base' to={`/app/${post.username}`}>{post.username}</NavLink>
+              <h1 className="text-xs sm:text-sm font-[150px] text-gray-500">{post.location}</h1>
             </div>
           </div>
           <details className="">
@@ -144,7 +142,7 @@ export default function ({ post, setWidth, modalRef }) {
               />
               <img
                 className={`absolute top-[30%] left-[35%] w-[30%] contrast-75
-                ${animateLike ? "animate-pop2" : "hidden"} `}
+                ${animateLike ? "animate-like" : "hidden"} `}
                 src="https://res.cloudinary.com/dmxjulnzo/image/upload/v1729320438/Heart_coraz%C3%B3n.svg_jupxq6.png"
                 alt=""
               />
@@ -186,11 +184,11 @@ export default function ({ post, setWidth, modalRef }) {
                     .then((res) => {
                       if (currentUser._id != post.postedBy) {
                         if (!liked) {
-                          axios.post('/api/v1/notifications/create', { to: post.postedBy, content: 'liked your post', post: post.postFile, type: 'like' })
+                          axios.post(`/api/v1/notifications/create`, { to: post.postedBy, content: 'liked your post', post: post.postFile, type: 'like' })
                         }
                         else {
                           // delete like notification if exits
-                          axios.delete('/api/v1/notifications/delete-by-fields', { to: post.postedBy, content: 'liked your post', post: post.postFile, type: 'like' })
+                          axios.delete(`/api/v1/notifications/delete-by-fields`, { to: post.postedBy, content: 'liked your post', post: post.postFile, type: 'like' })
                         }
                       }
 
@@ -252,19 +250,19 @@ export default function ({ post, setWidth, modalRef }) {
             </div>
           </div>
           <h1 className="">{likes.length} likes</h1>
-          <span className="font-medium">{post.username}</span> <span>{post.caption}</span>
-          <h1 className="text-sm font-[150px] text-gray-500">{new Date(post.createdAt).toDateString().slice(3)}</h1>
+          <span className="font-medium text-sm sm:text-base">{post.username}</span> <span className="text-sm sm:text-base">{post.caption}</span>
+          <h1 className="text-xs sm:text-base font-[150px] text-gray-500">{new Date(post.createdAt).toDateString().slice(3)}</h1>
         </div>
         <form
           action=""
           className="relative"
           onSubmit={(e) => {
             e.preventDefault()
-            axios.post('/api/v1/comments/add', { content: comment, post: post._id })
+            axios.post(`/api/v1/comments/add`, { content: comment, post: post._id })
               .then((res) => {
                 setComments((cur) => [...cur, { ...res.data.data, displayPicture, username }])
                 if (res.data.data.commentedBy != currentUser._id) {
-                  axios.post('/api/v1/notifications/create', { to: post.postedBy, content: `commented on your post`, type: 'comment', post: post.postFile })
+                  axios.post(`/api/v1/notifications/create`, { to: post.postedBy, content: `commented on your post`, type: 'comment', post: post.postFile })
                     .then((res) => {
                     })
                 }
@@ -275,7 +273,7 @@ export default function ({ post, setWidth, modalRef }) {
             ref={commentBoxRef}
             type="text"
             placeholder="Comment..."
-            className="w-full pl-9 py-1 sm:py-2  focus:bg-gray-50 focus:border-gray-400 border-gray-300 border-[1px] outline-none  "
+            className="w-full pl-9 py-1 sm:py-2  focus:bg-gray-50 focus:border-gray-400 border-gray-300 border-[1px] outline-none "
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
@@ -295,7 +293,7 @@ export default function ({ post, setWidth, modalRef }) {
           </details>
           <button
             type="submit"
-            className={`absolute right-0 top-0 p-1 sm:p-2 ${comment ? 'text-[#4B60FF]' : ' text-gray-400'} font-medium`}
+            className={`absolute right-0 top-0 p-1 sm:p-2 ${comment ? 'text-[#4B60FF]' : ' text-gray-400'} font-medium `}
           >post</button>
         </form>
       </div>

@@ -2,10 +2,10 @@ import React, {  useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Create from '../Components/Create'
-import home from '../public/assets/icons/home.png'
-import create from '../public/assets/icons/create.png'
-import direct from '../public/assets/icons/direct.png'
-import like from '../public/assets/icons/like.png'
+import home from '../assets/icons/home.png'
+import create from '../assets/icons/create.png'
+import direct from '../assets/icons/direct.png'
+import like from '../assets/icons/like.png'
 
 export default function Navbar() {
 

@@ -97,7 +97,7 @@ export default function Profile() {
   }
 
   const logout = () => {
-    axios.post('/api/v1/users/logout')
+    axios.post(`/api/v1/users/logout`)
       .then(() => {
         dispatch(updateCurrentUser(null))
         setTimeout(()=> dispatch(MessagePopUp({message: '',visibility: false, type: ''})),3000)
@@ -171,7 +171,7 @@ export default function Profile() {
                     .then((res) => {
                       setRelation(res.data.data.status)
                       if (res.data.data.status !== 'none') {
-                        axios.post('/api/v1/notifications/create', { content: user.isPrivate ? 'requested to follow you' : 'started following you', type: user.isPrivate ? 'request' : 'follow', to: user._id })
+                        axios.post(`/api/v1/notifications/create`, { content: user.isPrivate ? 'requested to follow you' : 'started following you', type: user.isPrivate ? 'request' : 'follow', to: user._id })
                       }
                       else {
                         //delete Notification if exists

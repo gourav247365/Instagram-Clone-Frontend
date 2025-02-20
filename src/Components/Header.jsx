@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import direct from '../public/assets/icons/direct.png';
-import like from '../public/assets/icons/like.png'
+import direct from '../assets/icons/direct.png';
+import like from '../assets/icons/like.png'
 
 export default function Header(){
 
