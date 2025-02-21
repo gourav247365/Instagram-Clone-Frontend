@@ -50,17 +50,17 @@ This is the **frontend** of an Instagram Clone built using **React.js**. It prov
 
 ### mobile Screen
 - Home Page
-![home page Mobile](./preview_images/homeM.jpg)
+![home page Mobile](./preview_images/homeM.jpg){width=400px}
 - Proifle Page
-![profile page Mobile](./preview_images/profileM.jpg)
+![profile page Mobile](./preview_images/profileM.jpg){width=400px}
 - Create Post Page
-![create post page Mobile](./preview_images/createM1.jpg)
-![create post page Mobile](./preview_images/createM2.jpg)
+![create post page Mobile](./preview_images/createM1.jpg){width=400px}
+![create post page Mobile](./preview_images/createM2.jpg){width=400px}
 - Messages Page
-![messages page](./preview_images/directM1.jpg)
-![messages page](./preview_images/directM2.jpg)
+![messages page](./preview_images/directM1.jpg){width=400px}
+![messages page](./preview_images/directM2.jpg){width=400px}
 - Post Page
-![post page](./preview_images//postM.jpg)
+![post page](./preview_images//postM.jpg){width=400px}
 
 Also checkout Backend part
 [Visit Instagram Clone Backend Github Repository](https://github.com/gourav247365/Instagram-Clone-Bakend)
