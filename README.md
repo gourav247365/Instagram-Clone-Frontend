@@ -14,12 +14,15 @@ This is the **frontend** of an Instagram Clone built using **React.js**. It prov
 
 ## 🛠️ Tech Stack
 - React.js
-- Redux (for state management)
+- Redux Toolkit (for state management)
 - Tailwind CSS (for styling)
-- Socket.io (for real-time messaging)
+- React Router Dom (for routing)
+- Socket.io-Client (for real-time messaging)
 - Axios (for API requests)
+- react-easy-crop and browser-image-compression (for image Processing)
 
 ## 📷 Project Preview
+### Desktop Screen
 - Login Page
 ![login page](./preview_images/loginpage.png)
 - Home Page
@@ -43,5 +46,21 @@ This is the **frontend** of an Instagram Clone built using **React.js**. It prov
 ![post page](./preview_images/post3.png) 
 ![post page](./preview_images/post4.png)
 
+![demo video](./preview_images//preview.gif)
+
+### mobile Screen
+- Home Page
+![home page Mobile](./preview_images/homeM.jpg)
+- Proifle Page
+![profile page Mobile](./preview_images/profileM.jpg)
+- Create Post Page
+![create post page Mobile](./preview_images/createM1.jpg)
+![create post page Mobile](./preview_images/createM2.jpg)
+- Messages Page
+![messages page](./preview_images/directM1.jpg)
+![messages page](./preview_images/directM2.jpg)
+- Post Page
+![post page](./preview_images//postM.jpg)
+
 Also checkout Backend part
-[Visit Github Repository of Backend](https://github.com/gourav247365/Instagram-Clone-Bakend)
+[Visit Instagram Clone Backend Github Repository](https://github.com/gourav247365/Instagram-Clone-Bakend)
