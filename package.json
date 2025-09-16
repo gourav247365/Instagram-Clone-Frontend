@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
-    "axios": "^1.7.7",
+    "axios": "^1.12.2",
     "browser-image-compression": "^2.0.2",
     "install": "^0.13.0",
     "npm": "^10.8.3",

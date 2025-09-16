@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from 'react-router-dom'
 import Loader from '../Components/Loader'
 import Post from '../Components/Post'
-import { updatePostIndex,updateUseDisplayFor } from "../store/Slice"
+import { updatePostIndex, updateUseDisplayFor } from "../store/Slice"
 import Input from "../Components/Input"
 
 export default function DisplayPost() {
@@ -34,7 +34,7 @@ export default function DisplayPost() {
     setTimeout(() => {
       dispatch(updateUseDisplayFor(null))
     })
-    navigate(-1, { preventScrollReset: true })
+    navigate(-1)
   }
   const goToPrevPost = () => {
     if (postIndex > 0) {
@@ -114,18 +114,29 @@ export default function DisplayPost() {
   return (
     <div
       ref={divRef}
-      className={`w-full h-dvh flex ${isMobile ? 'flex-col ' : ''} justify-around items-center relative bg-black bg-opacity-50 z-20 focus:outline-none`}
+      className={`w-full h-dvh flex ${isMobile ? 'flex-col justify-start bg-white ' : 'bg-black bg-opacity-50 justify-around items-center'} relative z-20 focus:outline-none overflow-x-hidden `}
       tabIndex='0'
       onLoad={() => divRef.current.focus()}
       onKeyUp={keyPressHandler}
     >
+      {
+        isMobile && <div className="bg-white h-fit">
+          <button onClick={Close}>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc2Uv0OSa0-BwQzW585-SaNy68y7FOe4wUoQ&s" 
+              alt=""
+              className="w-6 mt-2 ml-1 mix-blend-multiply"
+            />
+          </button>
+        </div>
+      }
       <dialog
         ref={editModalRef}
         className="h-full w-full"
       >
-        <div className="flex w-full justify-center h-full items-center bg-[#727272]  " >
+        <div className={`flex w-full justify-center h-full items-center bg-[#727272] ${isMobile ? 'hidden' : ''}`} >
           <button
-            className="right-0 top-0 fixed z-10 scale-150 p-6 "
+            className={`right-0 top-0 fixed z-10 scale-150 p-6 `}
             onClick={() => {
               editModalRef.current.close()
             }}
@@ -160,15 +171,15 @@ export default function DisplayPost() {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
-              <button 
-                onClick={update} 
+              <button
+                onClick={update}
               >update</button>
             </div>
           </div>
         </div>
       </dialog>
       <button
-        className="right-0 top-0 fixed z-10 scale-150 p-6 "
+        className={`right-0 top-0 fixed z-10 scale-150 p-6 ${isMobile ? 'hidden' : ''}`}
         onClick={Close}
       >
         <img
@@ -178,30 +189,44 @@ export default function DisplayPost() {
           className="invert"
         />
       </button>
-      <button
-        onClick={goToPrevPost}
-        className={`text-white text-xl p-1 lg:absolute lg:left-10 ${useDisplayFor ? '' : 'hidden'} `}
-      >
-        <img
-          className={`invert ${isMobile ? 'w-5' : 'w-8'}  -rotate-90`}
-          src="https://cdn-icons-png.flaticon.com/512/44/44603.png"
-          alt=""
-        />
-      </button>
+      <div>
+        <button
+          onClick={goToPrevPost}
+          className={`text-white text-xl p-1 lg:absolute lg:left-10 ${useDisplayFor ? '' : 'hidden'}  ${isMobile ? 'hidden' : ''}`}
+        >
+          <img
+            className={` ${isMobile ? 'w-5' : 'w-8 invert'}  -rotate-90`}
+            src="https://cdn-icons-png.flaticon.com/512/44/44603.png"
+            alt=""
+          />
+        </button>
+      </div>
       <Post
         post={post}
         modalRef={editModalRef}
       />
-      <button
-        onClick={goToNextPost}
-        className={` text-white text-xl p-1 lg:absolute lg:right-10 ${useDisplayFor ? '' : 'hidden'} `}
-      >
-        <img
-          className={`${isMobile ? 'w-5' : 'w-8'}  invert rotate-90`}
-          src="https://cdn-icons-png.flaticon.com/512/44/44603.png"
-          alt=""
-        />
-      </button>
+      <div className={`${isMobile ? 'w-full flex justify-between fixed bottom-0' : ''} `} >
+        <button
+          onClick={goToPrevPost}
+          className={`text-white text-xl p-1 lg:absolute lg:left-10 ${useDisplayFor ? '' : 'hidden'} ${isMobile ? '' : 'hidden'} `}
+        >
+          <img
+            className={` ${isMobile ? 'w-5 opacity-40' : 'w-8 invert'}  -rotate-90`}
+            src="https://cdn-icons-png.flaticon.com/512/44/44603.png"
+            alt=""
+          />
+        </button>
+        <button
+          onClick={goToNextPost}
+          className={` text-white text-xl p-1 lg:absolute lg:right-10 ${useDisplayFor ? '' : 'hidden'} `}
+        >
+          <img
+            className={`${isMobile ? 'w-5 opacity-40' : 'w-8 invert'} rotate-90`}
+            src="https://cdn-icons-png.flaticon.com/512/44/44603.png"
+            alt=""
+          />
+        </button>
+      </div>
     </div>
   )
 }

@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from "react-redux"
 import { NavLink, useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
 import { removePost, updateUseDisplayFor } from "../store/Slice"
+import like from '../assets/icons/like.png'
 
 export default function ({ post, setWidth, modalRef }) {
   const displayPicture = useSelector((state) => state.currentUser.displayPicture)
   const username = useSelector((state) => state.currentUser.username)
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false)
   const emojis = [
     "😂", "😊", "😍", "🔥", "💯", "😮", "😀", "😃", "😀", "🤡", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "🥲", "🥹", "😇", "🙂", "🙃", "😉", "😌", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🥸", "🤩", "🥳", "🙂‍↕️", "😏", "😒", "🙂‍↔️", "😞", "😔", "😟", "😕", "🙁", "🙁", "😣", "😖", "😫", "😩", "🥺", "😢", "😭", "😮‍💨", "😤", "😠", "😡", "🤬", "🤯", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🫣", "🤗", "🫡", "🤔", "🫢", "🤭", "🤫", "🤥", "😶", "😶‍🌫️", "😐", "😑", "😬", "🫨", "🫠", "🙄", "😯", "😦", "😲", "🥱", "😴", "🤤", "😪", "😵", "😵‍💫", "🫥", "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠", "😈", "👿", "💩", "👻", "💀", "👽", "👾", "🤖", "🎃", "🖤", "💛", "💙", "💜", "💚", "🧡", "❤️ ", "💔", "💗", "💓", "💕", "💖", "💞", "💘", "💝", "❣️", "💌", "💋", "😺", "😸", "😻", "😽", "😼", "🙀", "😿", "😹", "😾", "🙈", "🙉", "🙊", "👹", "👺", "🥺️", "🥰️", "🥵️", "🥶️", "🥴️", "🥳️", "👋", "🤚", "🖐", "✋", "🖖", "👌", "🤌", "🤏", "✌️ ", "🤞", "🫰", "🤟", "🤘", "🤙", "🫵", "🫱", "🫲", "🫸", "🫷", "🫳", "🫴", "👈", "👉", "👆", "🖕", "👇", "☝️ ", "👍", "👎", "✊", "👊", "🤛", "🤜", "👏", "🫶", "🙌", "👐", "🤲", "🤝", "🙏", "✍️ ", "💅", "🤳", "💪", "🦾", "🦵", "🦿", "🦶", "👣", "👂", "🦻", "👃", "🫀", "🫁", "🧠", "🦷", "🦴", "👀", "👁", "👅", "👄", "🫦", "💋", "🩸"
   ]
@@ -20,6 +21,7 @@ export default function ({ post, setWidth, modalRef }) {
   const [likes, setLikes] = useState([])
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState([])
+  const [mobileCommentsDiv, setMobileCommentsDiv] = useState(false)
   const currentUser = useSelector((state) => state.currentUser)
   const navigate = useNavigate()
   const commentBoxRef = useRef(null)
@@ -36,21 +38,21 @@ export default function ({ post, setWidth, modalRef }) {
       .then((res) => {
         setLiked(res.data.data.isLiked)
       })
-  }, [post])
 
-  useEffect(() => {
     axios.get(`/api/v1/comments/get-comments/${post._id}`)
       .then((res) => {
         setComments(res.data.data)
       })
-  }, [post])
 
-  useEffect(() => {
     axios.get(`/api/v1/likes/${post._id}`)
       .then((res) => {
         setLikes(res.data.data)
       })
+
+    setMobileCommentsDiv(false)
+
   }, [post])
+
 
   return (
     <div className={` bg-white rounded-sm relative flex`} >
@@ -70,13 +72,12 @@ export default function ({ post, setWidth, modalRef }) {
             }}
             src={post.postFile}
             alt="post"
-            className={`${setWidth ? "w-[]" : "md:h[] "} border-[1px] border-gray-300 object-contain h-full`}
+            className={`border-[1px] border-gray-300 object-contain h-full`}
           />
           <img
-            className={`absolute top-[30%] left-[35%] w-[30%] contrast-75
-            ${animateLike ? "animate-like" : "hidden"} `}
+            className={`absolute top-[30%] left-[35%] w-[30%] contrast-75 ${animateLike ? "animate-like" : "hidden"} `}
             src="https://res.cloudinary.com/dmxjulnzo/image/upload/v1729320438/Heart_coraz%C3%B3n.svg_jupxq6.png"
-            alt=""
+            alt="Liked"
           />
         </div>
       }
@@ -91,7 +92,10 @@ export default function ({ post, setWidth, modalRef }) {
               className="rounded-full"
             />
             <div>
-              <NavLink className='text-sm sm:text-base' to={`/app/${post.username}`}>{post.username}</NavLink>
+              <NavLink
+                className='text-sm sm:text-base'
+                to={`/app/${post.username}`}
+              >{post.username}</NavLink>
               <h1 className="text-xs sm:text-sm font-[150px] text-gray-500">{post.location}</h1>
             </div>
           </div>
@@ -120,8 +124,8 @@ export default function ({ post, setWidth, modalRef }) {
             </div>
           </details>
         </div>
-        {/*comments*/}
-        <div className={`border-gray-400 border-[] ${isMobile ? 'w-full' : setWidth ? "max-w-[500px]  xl:max-w-[700px]" : "w-[350px] h-full "} relative`}>
+
+        <div className={` ${isMobile ? 'w-full' : setWidth ? "max-w-[500px]  xl:max-w-[700px]" : "w-[350px] h-full "} relative`}>
           {
             (setWidth || isMobile) && <div>
               <img
@@ -148,6 +152,7 @@ export default function ({ post, setWidth, modalRef }) {
               />
             </div>
           }
+          {/*comments*/}
           {
             (!setWidth && !isMobile) && comments.map((comment) => (
               <div key={comment._id} className="p-2 flex w-full justify-between items-center gap-2">
@@ -171,6 +176,15 @@ export default function ({ post, setWidth, modalRef }) {
                         ))
                     }
                   }}>..</button>
+                <button>
+                  <img
+                    src={like}
+                    alt=""
+                    className="w-5 aspect-square"
+                    onClick={(e) => e.target.src = "https://www.pngall.com/wp-content/uploads/13/Red-Heart-PNG-Image-File.png"
+                    }
+                  />
+                </button>
               </div>
             ))
           }
@@ -191,7 +205,6 @@ export default function ({ post, setWidth, modalRef }) {
                           axios.delete(`/api/v1/notifications/delete-by-fields`, { to: post.postedBy, content: 'liked your post', post: post.postFile, type: 'like' })
                         }
                       }
-
                       setLiked((cur) => !cur)
                       if (res.data.message === 'Like Created Successfully')
                         setLikes((cur) => [...cur, res.data.data])
@@ -214,6 +227,7 @@ export default function ({ post, setWidth, modalRef }) {
                     navigate(`/app/p/${post._id}`)
                   }
                   else {
+                    setMobileCommentsDiv(true)
                     commentBoxRef.current.focus()
                   }
                 }}
@@ -224,9 +238,7 @@ export default function ({ post, setWidth, modalRef }) {
                   alt="comment"
                 />
               </button>
-              <button
-                className=""
-              >
+              <button>
                 <img
                   className="h-[24.22px]"
                   src="https://res.cloudinary.com/dmxjulnzo/image/upload/v1729254332/Slide9-removebg-preview_ehvzwv.png"
@@ -255,7 +267,7 @@ export default function ({ post, setWidth, modalRef }) {
         </div>
         <form
           action=""
-          className="relative"
+          className={`relative ${isMobile ? 'pb-1' : ''}`}
           onSubmit={(e) => {
             e.preventDefault()
             axios.post(`/api/v1/comments/add`, { content: comment, post: post._id })
@@ -296,6 +308,51 @@ export default function ({ post, setWidth, modalRef }) {
             className={`absolute right-0 top-0 p-1 sm:p-2 ${comment ? 'text-[#4B60FF]' : ' text-gray-400'} font-medium `}
           >post</button>
         </form>
+        {/* Mobile Comments */}
+        {
+          mobileCommentsDiv && (
+            <div className={` border-t-2 border-gray-300 flex flex-col items-center rounded-t-2xl ${isMobile ? 'pb-7' : ''}`}>
+              <div className="w-10 p-[2.5px] mt-2 bg-gray-300 rounded-full"></div>
+              <h1 className="text-sm pt-1 pb-2">Comments</h1>
+              {
+                (!setWidth && isMobile) && comments.map((comment) => (
+                  <div key={comment._id} className="p-2 flex w-full justify-between items-center gap-2">
+                    <img
+                      src={comment.displayPicture}
+                      alt="user"
+                      className="w-8 aspect-square rounded-full cursor-pointer"
+                      onClick={() => navigate(`/app/${comment.username}`)}
+                    />
+                    <div className="w-full">
+                      <h1 className="text-xs font-medium">{comment.username}</h1>
+                      <h1 className="text-xs text-gray-700">{comment.content}</h1>
+                    </div>
+
+                    <button
+                      title="delete comment"
+                      className={`${(comment.commentedBy == currentUser._id || post.postedBy === currentUser._id) ? '' : 'hidden '} rotate-90`}
+                      onClick={() => {
+                        if (comment.commentedBy == currentUser._id || post.postedBy === currentUser._id) {
+                          axios.delete(`/api/v1/comments/delete/${comment._id}`)
+                            .then((res) => setComments((cur) => cur.filter((comment) => comment._id != res.data.data._id)
+                            ))
+                        }
+                      }}>..</button>
+                    <button>
+                      <img
+                        src={like}
+                        alt=""
+                        className="w-5 aspect-square"
+                        onClick={(e) => e.target.src = "https://www.pngall.com/wp-content/uploads/13/Red-Heart-PNG-Image-File.png"
+                        }
+                      />
+                    </button>
+                  </div>
+                ))
+              }
+            </div>
+          )
+        }
       </div>
     </div>
   )

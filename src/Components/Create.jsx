@@ -4,7 +4,7 @@ import Input from './Input'
 import axios from "axios";
 import imageCompression from 'browser-image-compression'
 import { useDispatch, useSelector } from "react-redux";
-import { addNewPost, addNewFollowingPost } from '../store/Slice'
+import { addNewPost, addNewFollowingPost, MessagePopUp } from '../store/Slice'
 
 export default function Create({ modalRef }) {
 
@@ -41,6 +41,12 @@ export default function Create({ modalRef }) {
         setCaption("")
         dispatch(addNewPost(res.data.data))
         dispatch(addNewFollowingPost({ ...res.data.data, username, displayPicture }))
+      })
+      .catch((error)=> {
+        console.log(error);
+        
+        setTimeout(()=> dispatch(MessagePopUp({visibility: false,message: '', type: ''})),3000)
+        dispatch(MessagePopUp({visibility: true,message: 'Error Creating Post', type: 'error'}))
       })
   }
 

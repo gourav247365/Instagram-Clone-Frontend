@@ -50,7 +50,7 @@ export default function Home() {
               src={currentUser.displayPicture}
               alt="user"
               width="70px" />
-            <h1>Your Story</h1>
+            <h1 className="text-sm sm:text-base">Your Story</h1>
             
           </div>
         }
